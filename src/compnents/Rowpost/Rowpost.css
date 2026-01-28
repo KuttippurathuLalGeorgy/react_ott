@@ -1,20 +1,47 @@
-.row{
+.row {
     margin-left: 20px;
+    margin-bottom: 20px;
     color: #fff;
-}
+  }
 
-.posters{
+  .posters {
     display: flex;
-    padding: 20px;
+    gap: 32px;
     overflow-x: scroll;
     overflow-y: hidden;
-}
-
-.posters::-webkit-scrollbar{
+    scroll-behavior: smooth;
+  }
+  
+  .posters::-webkit-scrollbar {
     display: none;
-}
-
-.poster{
+  }
+  
+  .poster-wrapper {
+    flex: 0 0 auto;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* shrink all when hovering row */
+  .posters:hover .poster-wrapper {
+    transform: scale(0.92);
+  }
+  
+  /* expand hovered item */
+  .poster-wrapper:hover {
+    transform: scale(1.2) translateY(-10px);
+    z-index: 10;
+  }
+  
+  .poster {
     max-height: 250px;
-    margin-right: 10px;
-}
+    object-fit: cover;
+    border-radius: 5px;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .poster-wrapper:hover .poster {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  
+  

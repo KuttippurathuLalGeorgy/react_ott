@@ -3,6 +3,7 @@ import NavBar from './compnents/NavBar/NavBar'
 import "./App.css";
 import Banner from './compnents/Banner/Banner';
 import Rowpost from './compnents/Rowpost/Rowpost';
+import ColumnPost from './ColumnPost/ColumnPost';
 
 function App() {
 
@@ -10,8 +11,7 @@ function App() {
     <div className='App'>
       <NavBar/>
       <Banner/>
-      <Rowpost/>
-      <Rowpost/>
+      <ColumnPost/>
     </div>
     
   )
