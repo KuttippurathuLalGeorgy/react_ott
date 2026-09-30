@@ -14,7 +14,8 @@ function Banner() {
   const[movie, setMovie] = useState();
   useEffect(() =>{
     axios.get(`3/trending/all/day?language=en-US?api_key=${API_KEY}`).then((response) =>{
-      setMovie(response.data.results[8]);
+      setMovie(response.data.results[7]);
+      console.log(response.data.results);
     })
   }, [])
   return ( 
@@ -25,11 +26,16 @@ function Banner() {
       backgroundPosition: "top",
     }}>
         <div className='content'>
-          <h1 className='title'>{movie? movie?.original_title: ""}</h1>
-          <h4 className='showtime'>⭐ {movie? movie?.vote_average % 1 == 0
-                                        ? Math.floor(movie.vote_average)
-                                        : movie.vote_average.toFixed(1) : ""} 
-                                        ({movie? movie?.vote_count : ""})</h4>
+          <h1 className='title'> {movie?.original_title ?? movie?.name ?? ""}</h1>
+          <p className='showtime'>{(movie?.release_date ?? movie?.first_air_date ?? "")}
+                                        {" ⭐ "}
+                                        {movie?.vote_average != null
+                                          ? movie.vote_average % 1 === 0
+                                            ? Math.floor(movie.vote_average)
+                                            : movie.vote_average.toFixed(1)
+                                          : ""}{" "}
+                                          ({movie? movie?.vote_count : ""})
+                                        </p>
           <div className='banner_buttons'>
               <button className='button'>Play </button>
               <button className='button'>My list </button>

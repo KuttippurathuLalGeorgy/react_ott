@@ -1,35 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { API_KEY,HomeAPIUrl } from '../constants/constants';
-import Rowpost from '../compnents/Rowpost/Rowpost';
-import axios from '../axios';
+import React, { useEffect, useState } from "react";
+import { API_KEY, HomeAPIUrl } from "../constants/constants";
+import Rowpost from "../components/Rowpost/Rowpost";
+import axios from "../axios";
 
-const ColumnPost = () => {
-    const [list, setList] = useState([]);
-    const homeList = HomeAPIUrl;
+function ColumnPost() {
+  const [list, setList] = useState([]);
 
-    useEffect(() =>{
-      homeList.list.map((e) =>{
-        axios.get(`${e.url}api_key=${API_KEY}`).then((response) =>{
-            const newItem = { category: e.genre, list: response.data.results ?? []};
-            setList(list => [...list, newItem]);
-          }).catch(err =>{
-            console.log(err)
-          })
-      })
-    }, [])
+  useEffect(() => {
+    HomeAPIUrl.list.forEach((e) => {
+      axios
+        .get(`${e.url}api_key=${API_KEY}`)
+        .then((response) => {
+          const newItem = {
+            category: e.genre,
+            list: response.data.results || [],
+          };
+
+          setList((prevList) => [...prevList, newItem]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }, []);
 
   return (
     <div>
-        {
-            list.map((item, index )=>(
-               item.list.length > 0 &&
-                <Rowpost 
-                key={index}
-                item={item}/> 
-            ))
-        }
+      {list.map((item, index) =>
+        item.list.length > 0 ? (
+          <Rowpost
+            key={index}
+            item={item}
+          />
+        ) : null
+      )}
     </div>
-  )
+  );
 }
 
-export default ColumnPost
+export default ColumnPost;
